@@ -87,12 +87,17 @@ class ChromeExecution:
         self.trace_file.flush()
 
     def get_logs(self) -> None:
-        try:
-            with open(self.output_file_directory+"/chrome_data/Default/chrome_debug.log") as log_file:
-                self.logs = set(log_file.read().split("\n"))
-            print(len(self.logs))
-        except FileNotFoundError as e:
-            print(e)
+        # P1 (compat): modern Chrome writes chrome_debug.log at the
+        # user-data-dir root; older Chrome used Default/. Try both.
+        for log_path in (self.output_file_directory+"/chrome_data/chrome_debug.log",
+                         self.output_file_directory+"/chrome_data/Default/chrome_debug.log"):
+            try:
+                with open(log_path) as log_file:
+                    self.logs = set(log_file.read().split("\n"))
+                print(len(self.logs))
+                return
+            except FileNotFoundError as e:
+                print(e)
         
     
     def get_local_storage_keys(self) -> None:
