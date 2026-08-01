@@ -36,7 +36,10 @@ class BrowserInteractions:
     def wait_for_page_load(cls, browser: Chrome) -> None:
         start_time = time()
         try:
-            WebDriverWait(browser, PAGE_LOAD_WAIT_TIME).until(browser.execute_script("return document.readyState") == "complete")
+            # P2 (bug): until() requires a callable; the original passed the
+            # already-evaluated bool, so the wait always raised TypeError and
+            # fell through to window.stop().
+            WebDriverWait(browser, PAGE_LOAD_WAIT_TIME).until(lambda d: d.execute_script("return document.readyState") == "complete")
         except:
             try:
                 browser.execute_script("return window.stop();")
