@@ -1,0 +1,5 @@
+{
+  "action": "click",
+  "target": "#login-link",
+  "rationale": "로그인 화면으로 이동한다"
+}

@@ -27,7 +27,7 @@ class DataStore:
         )
         self.connection = pymysql.connect(
             host=db_details.get("host", "localhost"),
-            user=db_details.get("user", "root"),
+            user=db_details.get("user", db_details.get("username", "root")),
             password=db_details.get("password", ""),
             port=db_details.get("port", 3306),
             database=self.db,
@@ -210,3 +210,31 @@ class DataStore:
             update_file_path = content_file_path.split(".c")[0] + ".m"
             with open(self.cache_directory + "/" + "muzeel" + "/" + update_file_path, "w") as update_file:
                 update_file.write(self.data_map[request_url]["updated"])
+
+    def preserve_original_files(self) -> None:
+        """Reset every output to the captured original after a failed safety gate."""
+        for request_url, values in self.data_map.items():
+            values["updated"] = values["original"]
+
+    def validate_updated_files(self) -> dict[str, str]:
+        """Reparse transformed first-party files before they are persisted."""
+        parser = ModernFunctionParser()
+        errors = {}
+        for request_url, content in self.data_map.items():
+            if request_url in self.excluded_request_urls:
+                continue
+            if not self.function_id_map.get(request_url):
+                continue
+            try:
+                with tempfile.NamedTemporaryFile(
+                    mode="w", suffix=".js", encoding="utf-8", delete=False
+                ) as source:
+                    source.write(content["updated"])
+                    source_path = Path(source.name)
+                try:
+                    parser.parse_file(source_path)
+                finally:
+                    source_path.unlink(missing_ok=True)
+            except Exception as error:
+                errors[request_url] = str(error)
+        return errors

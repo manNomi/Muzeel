@@ -1,0 +1,5 @@
+{
+  "action": "click",
+  "target": "#menu-button",
+  "rationale": "현재 화면에서 상태만 바꾸는 메뉴 버튼을 확인한다"
+}

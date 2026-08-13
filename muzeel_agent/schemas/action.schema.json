@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Muzeel AI Agent action",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "target"],
+      "properties": {
+        "action": {"const": "click"},
+        "target": {"type": "string", "minLength": 1},
+        "rationale": {"type": "string", "maxLength": 300}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "delta_y"],
+      "properties": {
+        "action": {"const": "scroll"},
+        "delta_y": {"type": "integer", "minimum": -800, "maximum": 800, "not": {"const": 0}},
+        "rationale": {"type": "string", "maxLength": 300}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "seconds"],
+      "properties": {
+        "action": {"const": "wait"},
+        "seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 3},
+        "rationale": {"type": "string", "maxLength": 300}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action"],
+      "properties": {
+        "action": {"const": "stop"},
+        "rationale": {"type": "string", "maxLength": 300}
+      }
+    }
+  ]
+}

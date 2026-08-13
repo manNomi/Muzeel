@@ -1,0 +1,8 @@
+chromedriver-autoinstaller
+beautifulsoup4
+blinker==1.7.0
+psutil
+PyMySQL==0.10.1
+selenium==4.9.1
+selenium-wire==5.1.0
+setuptools<81

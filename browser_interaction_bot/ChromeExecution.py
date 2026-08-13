@@ -16,10 +16,11 @@ from .DOTFileBuilder import DOTFileBuilder
 import chromedriver_autoinstaller
 from selenium.common.exceptions import NoSuchWindowException, UnexpectedAlertPresentException, TimeoutException
 
-chromedriver_autoinstaller.install()
-
 class ChromeExecution:
     def __init__(self, url: str, event_handler: EventHandler, output_file_directory: str = None, proxy_url: str = None, solution: str = "original"):
+        # Do not download a binary merely by importing this module. Import-time
+        # network access made tests and offline validation fail before execution.
+        chromedriver_autoinstaller.install()
         self.url = url
         self.proxy_url = proxy_url
         self.output_file_directory = "screenshots" if output_file_directory is None else output_file_directory
@@ -126,14 +127,14 @@ class ChromeExecution:
     
     def open_page(self, url) -> str:
         try:
-            url_loaded = BrowserInteractions.open_page(self.browser, self.url)
+            url_loaded = BrowserInteractions.open_page(self.browser, url)
             BrowserInteractions.close_alert_accept(self.browser)
             return url_loaded
         except TimeoutException as e:
             raise e
         except:
             self.restart()
-            self.open_page(url)
+            return self.open_page(url)
     
     def force_close_process(self) -> None:
         for child in self.child_processes:

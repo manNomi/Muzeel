@@ -6,8 +6,29 @@
 ## 개선판 문서
 
 - [구조와 구현 방법](docs/architecture-ko.md)
+- [Muzeel AI Agent 설계와 실행 방법](docs/muzeel-ai-agent-ko.md)
 - [Solid Connection 실험 보고서](docs/solid-connection-case-study-ko.md)
 - [공개 데이터 설명과 검증 방법](experiments/solid-connection/README.md)
+
+## Muzeel AI Agent
+
+AI 에이전트는 JavaScript 함수의 필요 여부를 판단하지 않습니다. 현재 화면에서
+다음에 실행할 안전한 상호작용 하나만 제안합니다. 독립 정책 검증기가 제안을
+검사하고 브라우저에서 실제로 관찰된 함수 실행 표식만 제거 근거로 사용합니다.
+파서 실패와 행동 실패와 이동 위반과 불완전한 추적이 있으면 원본 JavaScript를
+보존합니다.
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 -m muzeel_agent validate-action \
+  --base-url https://example.test/ \
+  --observation muzeel_agent/examples/observation.json \
+  --action muzeel_agent/examples/safe-action.json
+```
+
+처리 파일을 만든 뒤에는 별도의 회귀 시나리오로 기능과 화면과 콘솔 오류를
+비교해야 합니다. 제거 전 관문 통과만으로 결과를 배포 가능한 상태로 표시하지
+않습니다.
 
 Solid Connection 홈 화면 사례에서 최종 안전 정책은 JavaScript를
 1,919,566바이트에서 1,481,143바이트로 줄였습니다. 감소율은 22.84%입니다.

@@ -1,0 +1,25 @@
+{
+  "url": "https://example.test/",
+  "title": "Example",
+  "state_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "interactive_elements": [
+    {
+      "selector": "#menu-button",
+      "tag": "button",
+      "role": null,
+      "name": "메뉴 열기",
+      "disabled": false,
+      "href": null,
+      "input_type": null
+    },
+    {
+      "selector": "#login-link",
+      "tag": "a",
+      "role": null,
+      "name": "로그인",
+      "disabled": false,
+      "href": "/login",
+      "input_type": null
+    }
+  ]
+}
