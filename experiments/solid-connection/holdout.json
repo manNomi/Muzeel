@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "scenario_count": 5,
+  "evaluable_scenario_count": 5,
+  "damaged_scenario_count": 0,
+  "functional_success_rate": 1.0,
+  "scenarios": [
+    {"id":"unseen-language-option","discovery_value":"IELTS","holdout_value":"JLPT","original_passed":true,"processed_passed":true,"visual_similarity":1.0,"original_console_error_count":2,"processed_console_error_count":2},
+    {"id":"unseen-country-option","discovery_value":"DE","holdout_value":"AU","original_passed":true,"processed_passed":true,"visual_similarity":1.0,"original_console_error_count":2,"processed_console_error_count":2},
+    {"id":"school-tab-cycle","original_passed":true,"processed_passed":true,"visual_similarity":1.0,"original_console_error_count":2,"processed_console_error_count":2},
+    {"id":"list-filter-cycle","original_passed":true,"processed_passed":true,"visual_similarity":1.0,"original_console_error_count":6,"processed_console_error_count":6},
+    {"id":"bottom-navigation-after-scroll","original_passed":true,"processed_passed":true,"visual_similarity":0.9999690680098378,"original_console_error_count":2,"processed_console_error_count":2}
+  ],
+  "console_error_categories_in_both_variants": [
+    "React hydration error 418",
+    "closed snapshot request returned 404"
+  ],
+  "new_processed_console_error_categories": []
+}

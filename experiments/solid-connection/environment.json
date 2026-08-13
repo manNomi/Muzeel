@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "captured_date": "2026-08-13",
+  "target_url": "https://www.solid-connection.com/",
+  "target_scope": "public home page only",
+  "operating_system": "macOS 15.7.4 arm64",
+  "python": "3.12.4",
+  "node": "23.10.0",
+  "chrome_family": "151.0.7922",
+  "chromedriver": "151.0.7922.77",
+  "mobile_emulation": "iPhone X",
+  "snapshot_entry_count": 79,
+  "query_policy": "preserve",
+  "snapshot_miss_policy": "closed_404",
+  "live_passthrough_request_count": 0,
+  "browser_surface": "Codex In-app Browser MCP",
+  "page_content_trust": "untrusted_data",
+  "side_effect_policy": "safe_local_state_only"
+}

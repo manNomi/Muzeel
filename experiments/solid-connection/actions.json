@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "run_id": "solid-connection-browser-mcp-20260813-r1",
+  "target_url": "https://www.solid-connection.com/",
+  "actions": [
+    {"index":1,"label":"상단 대학 탭 경희대","verified_state":"경희대 버튼 선택 상태","action":"click","target":"button[aria-pressed]:nth-of-type(2)"},
+    {"index":2,"label":"상단 대학 탭 중앙대","verified_state":"중앙대 버튼 선택 상태","action":"click","target":"button[aria-pressed]:nth-of-type(3)"},
+    {"index":3,"label":"상단 대학 탭 인하대","verified_state":"인하대 버튼 선택 상태","action":"click","target":"button[aria-pressed]:nth-of-type(1)"},
+    {"index":4,"label":"어학 드롭다운 열기","verified_state":"12개 어학 시험 목록 노출","action":"click","target":"section .relative:nth-child(1) > button"},
+    {"index":5,"label":"어학 IELTS 선택","verified_state":"검색 URL에 languageTestType=IELTS 반영","action":"click","target":"section .relative:nth-child(1) ul li:nth-child(6) button"},
+    {"index":6,"label":"나라 드롭다운 열기","verified_state":"39개 국가 목록 노출","action":"click","target":"section .relative:nth-child(2) > button"},
+    {"index":7,"label":"나라 독일 선택","verified_state":"검색 URL에 countryCode=DE 반영","action":"click","target":"section .relative:nth-child(2) ul li:nth-child(11) button"},
+    {"index":8,"label":"전체 학교 필터 인하대","verified_state":"인하대 필터 선택 상태","action":"click","target":"div.flex.flex-row.gap-2 button:nth-of-type(2)"},
+    {"index":9,"label":"전체 학교 필터 경희대","verified_state":"경희대 필터 선택 상태","action":"click","target":"div.flex.flex-row.gap-2 button:nth-of-type(3)"},
+    {"index":10,"label":"전체 학교 필터 중앙대","verified_state":"중앙대 필터 선택 상태","action":"click","target":"div.flex.flex-row.gap-2 button:nth-of-type(4)"},
+    {"index":11,"label":"전체 학교 필터 전체","verified_state":"전체 필터 선택 상태","action":"click","target":"div.flex.flex-row.gap-2 button:nth-of-type(1)"},
+    {"index":12,"label":"하단 콘텐츠 탐색 스크롤 1","verified_state":"후기 콘텐츠 영역 노출","action":"scroll","delta_y":700},
+    {"index":13,"label":"하단 콘텐츠 탐색 스크롤 2","verified_state":"하단 내비게이션 노출","action":"scroll","delta_y":700}
+  ]
+}

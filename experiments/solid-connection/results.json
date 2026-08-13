@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "target_url": "https://www.solid-connection.com/",
+  "original_javascript_bytes": 1919566,
+  "stages": [
+    {
+      "id": "legacy",
+      "description": "Python Esprima를 사용한 기존 Muzeel",
+      "parse_failure_count": 16,
+      "excluded_file_count": 0,
+      "function_count": 4089,
+      "used_function_count": 1377,
+      "removed_function_count": 2712,
+      "processed_javascript_bytes": 1534467,
+      "saved_javascript_bytes": 385099,
+      "reduction_percent": 20.062,
+      "accepted": false,
+      "rejection_reason": "22개 파일 중 16개가 완전하게 파싱되지 않음"
+    },
+    {
+      "id": "modern_aggressive",
+      "description": "최신 파서로 모든 스크립트를 공격적으로 처리",
+      "parse_failure_count": 0,
+      "excluded_file_count": 0,
+      "function_count": 10597,
+      "used_function_count": 3417,
+      "removed_function_count": 7180,
+      "processed_javascript_bytes": 950410,
+      "saved_javascript_bytes": 969156,
+      "reduction_percent": 50.488,
+      "accepted": false,
+      "rejection_reason": "Google Tag Manager와 Sentry에서 새 런타임 오류가 발생"
+    },
+    {
+      "id": "modern_first_party_only",
+      "description": "외부 출처 파일은 보존하고 동일 출처만 처리",
+      "parse_failure_count": 0,
+      "excluded_file_count": 3,
+      "function_count": 6436,
+      "used_function_count": 1743,
+      "removed_function_count": 4693,
+      "processed_javascript_bytes": 1214044,
+      "saved_javascript_bytes": 705522,
+      "reduction_percent": 36.754,
+      "accepted": false,
+      "rejection_reason": "동일 출처 앱 번들의 Sentry 초기화 제거로 새 오류가 발생"
+    },
+    {
+      "id": "modern_safe",
+      "description": "외부 출처와 보호 런타임을 보존하는 최종 정책",
+      "muzeel_commit": "672f2fecc52658eafbca281c96bc0d1fe3604d44",
+      "parse_failure_count": 0,
+      "excluded_file_count": 5,
+      "javascript_file_count": 22,
+      "function_count": 4084,
+      "used_function_count": 1143,
+      "removed_function_count": 2941,
+      "processed_javascript_bytes": 1481143,
+      "saved_javascript_bytes": 438423,
+      "reduction_percent": 22.84,
+      "processing_seconds": 13.349,
+      "browser_action_count": 13,
+      "browser_action_failure_count": 0,
+      "syntax_valid_file_count": 22,
+      "syntax_invalid_file_count": 0,
+      "accepted": true,
+      "acceptance_reason": "분석 실패와 기능 손상과 새 콘솔 오류 종류가 관찰되지 않음"
+    }
+  ],
+  "protected_files": [
+    {
+      "kind": "same_origin_runtime",
+      "count": 2,
+      "reason": "Sentry 초기화 마커를 포함한 번들 보존"
+    },
+    {
+      "kind": "cross_origin",
+      "count": 3,
+      "reason": "Apple 로그인과 Google Tag Manager와 Sentry Replay 보존"
+    }
+  ]
+}

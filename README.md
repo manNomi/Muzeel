@@ -1,5 +1,20 @@
 # Muzeel: Assessing the impact of JavaScript dead code elimination on mobile web performance
 
+> 이 포크는 최신 JavaScript 파서와 브라우저 에이전트 기반 탐색을 실험한
+> 개선판입니다. 원본 프로젝트의 구조와 커밋 이력을 유지합니다.
+
+## 개선판 문서
+
+- [구조와 구현 방법](docs/architecture-ko.md)
+- [Solid Connection 실험 보고서](docs/solid-connection-case-study-ko.md)
+- [공개 데이터 설명과 검증 방법](experiments/solid-connection/README.md)
+
+Solid Connection 홈 화면 사례에서 최종 안전 정책은 JavaScript를
+1,919,566바이트에서 1,481,143바이트로 줄였습니다. 감소율은 22.84%입니다.
+브라우저 에이전트가 확인한 상호작용 13개를 재생했고 별도로 분리한 회귀
+시나리오 다섯 개가 모두 통과했습니다. 이 수치는 홈 화면과 공개된 검증
+범위에만 해당하며 전체 사이트의 안전성을 보장하지 않습니다.
+
 Muzeel is a framework for the identification and elimination of unused JavaScript functions, also known as "deadcode". It is a black-box approach requiring neither knowledge of the code nor execution traces. The core design principle of Muzeel is to address the challenge of dynamically analyzing JavaScript after the page is loaded, by emulating all possible user interactions with the page, such that the used functions (executed when interactivity events fire) are accurately identified, whereas unused functions are filtered out and eliminated.
 
 ## Paper
