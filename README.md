@@ -41,6 +41,12 @@ Cross-origin scripts are also preserved by default. Interaction coverage from a
 single page is not a sound basis for rewriting independently deployed analytics,
 authentication, monitoring, or widget code.
 
+Bundles containing a protected runtime marker are preserved as well. The
+default marker protects Sentry initialization because changing application-side
+monitoring setup can break an otherwise untouched cross-origin monitoring SDK.
+Callers can provide `protected_content_markers` in `db_details` to adapt this
+allowlist for a site.
+
 ### Clone the sites 
 
 In a separate terminal run the caching proxy as:

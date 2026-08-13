@@ -22,6 +22,9 @@ class DataStore:
         self.request_url_content_file_map = {} # Map of form {request_url: file_path_of_original_code }. Makes retrieval easier
         self.cache_directory = db_details.get("cache_directory", "")+"/data/" # Directory of folder where data is cached.
         self.db = db_details.get("database", "db")
+        self.protected_content_markers = tuple(
+            db_details.get("protected_content_markers", ("Sentry", "sentry"))
+        )
         self.connection = pymysql.connect(
             host=db_details.get("host", "localhost"),
             user=db_details.get("user", "root"),
@@ -89,6 +92,19 @@ class DataStore:
                 request_origin.netloc,
             ) != (site_origin.scheme, site_origin.netloc):
                 self.excluded_request_urls[request_url] = "cross_origin_preserved"
+                continue
+            protected_marker = next(
+                (
+                    marker
+                    for marker in self.protected_content_markers
+                    if marker in script_content
+                ),
+                None,
+            )
+            if protected_marker is not None:
+                self.excluded_request_urls[request_url] = (
+                    f"protected_runtime_marker:{protected_marker.lower()}"
+                )
                 continue
             try:
                 with tempfile.NamedTemporaryFile(

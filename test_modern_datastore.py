@@ -102,6 +102,16 @@ class ModernDataStoreTest(unittest.TestCase):
         store.remove_unused_functions({})
         self.assertEqual(source, store.data_map[request_url]["updated"])
 
+    def test_protected_monitoring_runtime_is_preserved(self):
+        source = "const Sentry={init(){return true}};Sentry.init()"
+        temporary, _root, request_url, store = self.make_store(source)
+        self.addCleanup(temporary.cleanup)
+        self.assertEqual(
+            "protected_runtime_marker:sentry",
+            store.excluded_request_urls[request_url],
+        )
+        self.assertEqual(source, store.data_map[request_url]["updated"])
+
 
 if __name__ == "__main__":
     unittest.main()
