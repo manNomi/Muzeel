@@ -95,6 +95,11 @@ npm install
 
 외부 AI를 호출하는 프로그램을 준비한다. 이 프로그램은 앞에서 설명한 표준
 입출력 계약을 지켜야 한다. API 키는 이 저장소나 실행 추적에 기록하지 않는다.
+Codex CLI를 사용하는 경우 저장소에 포함된 어댑터를 사용할 수 있다.
+
+```sh
+python3 -m muzeel_agent.adapters.codex_cli --timeout 75
+```
 
 캐시 읽기 프록시를 실행한 다음 별도 터미널에서 다음 명령을 실행한다.
 
@@ -109,6 +114,19 @@ python3 run_agent.py \
 출력 경로는 매 실행마다 비어 있는 새 디렉터리를 사용하는 것이 좋다. 기존 추적
 파일이 있으면 새 실행을 이어 붙이지 않고 실패한다. 서로 다른 실행의 증거가
 섞이는 것을 막기 위한 동작이다.
+
+MySQL과 별도 프록시 없이 이미 캡처된 읽기 전용 스냅샷에서 실행하려면 다음
+명령을 사용한다.
+
+```sh
+python3 run_snapshot_agent.py \
+  --site https://www.solid-connection.com/ \
+  --site-id solid-connection-home \
+  --snapshot-dir /absolute/path/to/snapshot \
+  --driver /absolute/path/to/chromedriver \
+  --planner-command "python3 -m muzeel_agent.adapters.codex_cli --timeout 75" \
+  --output /absolute/path/to/new-output
+```
 
 ## 결과 해석
 
