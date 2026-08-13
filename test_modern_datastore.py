@@ -33,12 +33,11 @@ class FakeConnection:
 
 
 class ModernDataStoreTest(unittest.TestCase):
-    def make_store(self, source):
+    def make_store(self, source, request_url="https://example.test/app.js"):
         temporary = tempfile.TemporaryDirectory()
         root = Path(temporary.name)
         (root / "data" / "muzeel").mkdir(parents=True)
         (root / "data" / "script.c").write_text(source, encoding="utf-8")
-        request_url = "https://example.test/app.js"
         with patch(
             "DataStore.pymysql.connect",
             return_value=FakeConnection([(request_url, "script.c")]),
@@ -85,6 +84,20 @@ class ModernDataStoreTest(unittest.TestCase):
         temporary, _root, request_url, store = self.make_store(source)
         self.addCleanup(temporary.cleanup)
         self.assertIn(request_url, store.instrumentation_errors)
+        self.assertEqual(source, store.data_map[request_url]["updated"])
+        store.remove_unused_functions({})
+        self.assertEqual(source, store.data_map[request_url]["updated"])
+
+    def test_cross_origin_javascript_is_preserved_by_default(self):
+        source = "function analytics(){return 'external'}"
+        temporary, _root, request_url, store = self.make_store(
+            source, request_url="https://cdn.example.net/analytics.js"
+        )
+        self.addCleanup(temporary.cleanup)
+        self.assertEqual(
+            "cross_origin_preserved", store.excluded_request_urls[request_url]
+        )
+        self.assertEqual(set(), store.function_id_map[request_url])
         self.assertEqual(source, store.data_map[request_url]["updated"])
         store.remove_unused_functions({})
         self.assertEqual(source, store.data_map[request_url]["updated"])

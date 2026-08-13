@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import tempfile
+from urllib.parse import urlsplit
 
 import pymysql.cursors
 
@@ -17,6 +18,7 @@ class DataStore:
         self.function_id_map = {} # Map of form {request_url: set(function_identifiers)}. For each request_url, we keep the set of function identifiers in the file, 
         self.function_metadata_map = {}
         self.instrumentation_errors = {}
+        self.excluded_request_urls = {}
         self.request_url_content_file_map = {} # Map of form {request_url: file_path_of_original_code }. Makes retrieval easier
         self.cache_directory = db_details.get("cache_directory", "")+"/data/" # Directory of folder where data is cached.
         self.db = db_details.get("database", "db")
@@ -76,10 +78,18 @@ class DataStore:
 
         print("Retrieving functions in JS files with the modern parser")
         parser = ModernFunctionParser()
+        site_origin = urlsplit(self.url)
         for request_url in self.data_map:
             script_content = self.data_map[request_url]["original"]
             self.function_id_map[request_url] = set()
             self.function_metadata_map[request_url] = {}
+            request_origin = urlsplit(request_url)
+            if (
+                request_origin.scheme,
+                request_origin.netloc,
+            ) != (site_origin.scheme, site_origin.netloc):
+                self.excluded_request_urls[request_url] = "cross_origin_preserved"
+                continue
             try:
                 with tempfile.NamedTemporaryFile(
                     mode="w", suffix=".js", encoding="utf-8", delete=False

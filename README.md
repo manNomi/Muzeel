@@ -37,6 +37,10 @@ coalescing, arrow functions, and class or object methods. A file that cannot be
 parsed is left unchanged. This fail-closed behavior prevents partial function
 maps from being treated as complete dead-code evidence.
 
+Cross-origin scripts are also preserved by default. Interaction coverage from a
+single page is not a sound basis for rewriting independently deployed analytics,
+authentication, monitoring, or widget code.
+
 ### Clone the sites 
 
 In a separate terminal run the caching proxy as:
