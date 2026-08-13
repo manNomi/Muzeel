@@ -19,6 +19,7 @@ def main() -> int:
     results = load("results.json")
     holdout = load("holdout.json")
     environment = load("environment.json")
+    agent_run = load("agent-run-20260814.json")
 
     assert len(actions["actions"]) == 13
     assert [row["index"] for row in actions["actions"]] == list(range(1, 14))
@@ -61,6 +62,34 @@ def main() -> int:
     )
     assert holdout["new_processed_console_error_categories"] == []
     assert environment["live_passthrough_request_count"] == 0
+    elimination = agent_run["elimination"]
+    planner = agent_run["planner"]
+    agent_holdout = agent_run["holdout"]
+    assert planner["executed_action_count"] <= planner["action_budget"]
+    assert planner["policy_rejection_count"] == 0
+    assert planner["action_failure_count"] == 0
+    assert planner["navigation_violation_count"] == 0
+    assert planner["trace_audit_passed"] is True
+    assert elimination["total_function_count"] == (
+        elimination["used_function_count"] + elimination["removed_function_count"]
+    )
+    assert elimination["reduced_javascript_bytes"] == (
+        elimination["original_javascript_bytes"]
+        - elimination["processed_javascript_bytes"]
+    )
+    agent_reduction = (
+        100
+        * elimination["reduced_javascript_bytes"]
+        / elimination["original_javascript_bytes"]
+    )
+    assert abs(agent_reduction - elimination["reduction_percent"]) < 0.001
+    assert elimination["parser_failure_count"] == 0
+    assert elimination["processed_syntax_failure_count"] == 0
+    assert agent_holdout["evaluable_scenario_count"] == 5
+    assert agent_holdout["functional_damage_count"] == 0
+    assert agent_holdout["new_console_error_category_count"] == 0
+    assert agent_holdout["minimum_visual_similarity"] >= 0.99
+    assert agent_holdout["release_gate_approved"] is True
     print("solid-connection dataset: PASS")
     return 0
 

@@ -12,6 +12,7 @@
 | `results.json` | 원본과 공격적 개선판과 최종 안전 정책의 집계 수치 |
 | `holdout.json` | 탐색과 분리한 회귀 시나리오 결과 |
 | `environment.json` | 재현에 필요한 실행 환경과 정책 |
+| `agent-run-20260814.json` | 실제 Muzeel AI Agent 실행 집계 |
 | `validate_dataset.py` | 수치와 데이터 구조 검증기 |
 
 ## 검증

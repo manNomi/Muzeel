@@ -8,6 +8,7 @@
 - [구조와 구현 방법](docs/architecture-ko.md)
 - [Muzeel AI Agent 설계와 실행 방법](docs/muzeel-ai-agent-ko.md)
 - [Solid Connection 실험 보고서](docs/solid-connection-case-study-ko.md)
+- [Solid Connection AI Agent 실행 결과](docs/solid-connection-agent-run-20260814-ko.md)
 - [공개 데이터 설명과 검증 방법](experiments/solid-connection/README.md)
 
 ## Muzeel AI Agent
