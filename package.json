@@ -1,0 +1,9 @@
+{
+  "name": "muzeel-modern-parser",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Modern JavaScript parser bridge for Muzeel instrumentation",
+  "dependencies": {
+    "@babel/parser": "^7.28.0"
+  }
+}

@@ -25,6 +25,18 @@ Edit the config.py file to reflect the configurations that you have chosen. Ther
 ### Install dependencies
 pip3 install mitmdump esprima selenium-wire pymysql==0.10.1 markupsafe==1.1.0
 
+The improved instrumentation path also requires the modern JavaScript parser:
+
+```sh
+npm install
+python3 -m unittest -v test_modern_parser.py test_modern_datastore.py
+```
+
+The parser bridge supports current syntax such as optional chaining, nullish
+coalescing, arrow functions, and class or object methods. A file that cannot be
+parsed is left unchanged. This fail-closed behavior prevents partial function
+maps from being treated as complete dead-code evidence.
+
 ### Clone the sites 
 
 In a separate terminal run the caching proxy as:
