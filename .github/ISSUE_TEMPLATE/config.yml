@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 원본 Muzeel 논문
+    url: https://dl.acm.org/doi/10.1145/3517745.3561427
+    about: 연구 배경과 원본 평가 방법을 확인합니다.

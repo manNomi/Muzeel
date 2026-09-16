@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/muzeel/state-transition.schema.json",
+  "title": "Muzeel state-aware exploration transition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "sequence",
+    "explorer",
+    "state_before",
+    "action",
+    "state_after",
+    "discovery",
+    "outcome",
+    "timing"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "explorer": { "enum": ["original", "rule_rescan", "ai_agent"] },
+    "state_before": { "$ref": "#/$defs/state" },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "target_id", "policy_decision"],
+      "properties": {
+        "type": { "enum": ["click", "scroll", "wait", "input", "submit"] },
+        "target_id": { "type": "string", "minLength": 1 },
+        "policy_decision": { "enum": ["allowed", "denied"] },
+        "rationale": { "type": "string" }
+      }
+    },
+    "state_after": { "$ref": "#/$defs/state" },
+    "discovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "new_state",
+        "new_interaction_count",
+        "network_request_count",
+        "new_script_count",
+        "new_scripts",
+        "function_coverage_delta"
+      ],
+      "properties": {
+        "new_state": { "type": "boolean" },
+        "new_interaction_count": { "type": "integer", "minimum": 0 },
+        "network_request_count": { "type": "integer", "minimum": 0 },
+        "new_script_count": { "type": "integer", "minimum": 0 },
+        "new_scripts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["url_hash", "bytes", "status"],
+            "properties": {
+              "url_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+              "bytes": { "type": "integer", "minimum": 0 },
+              "status": {
+                "enum": ["discovered", "instrumented", "replayed", "protected", "failed"]
+              }
+            }
+          }
+        },
+        "function_coverage_delta": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "navigation_violation", "console_error_categories"],
+      "properties": {
+        "status": { "enum": ["succeeded", "failed", "denied"] },
+        "navigation_violation": { "type": "boolean" },
+        "console_error_categories": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["started_at", "settled_at", "elapsed_ms"],
+      "properties": {
+        "started_at": { "type": "string", "format": "date-time" },
+        "settled_at": { "type": "string", "format": "date-time" },
+        "elapsed_ms": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_id", "url_hash", "dom_hash", "screenshot_hash", "visible_interaction_count"],
+      "properties": {
+        "state_id": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "url_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "dom_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "screenshot_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "visible_interaction_count": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}
