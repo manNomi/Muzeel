@@ -1,0 +1,58 @@
+name: 연구 제안
+description: 새로운 연구 질문과 비교 실험을 제안합니다.
+title: "[Research] "
+labels:
+  - research
+body:
+  - type: markdown
+    attributes:
+      value: 연구 기여는 도구 이름보다 해결하는 한계와 비교 실험으로 판단합니다.
+  - type: textarea
+    id: problem
+    attributes:
+      label: 문제와 현재 한계
+      description: 원본 Muzeel 또는 현재 개선판에서 무엇이 부족한지 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: 연구 가설
+      description: 어떤 변화가 어떤 지표를 개선할 것으로 예상하는지 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: baselines
+    attributes:
+      label: 비교 대상
+      description: 원본과 규칙 기반 방법과 Agent 방법 중 비교할 대상을 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: metrics
+    attributes:
+      label: 지표와 성공 기준
+      description: 상태와 청크와 함수와 기능 및 성능 지표를 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: budget
+    attributes:
+      label: 행동 및 시간 예산
+      description: 모든 비교 대상에 적용할 동일한 예산을 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: 안전성과 공개 범위
+      description: 입력과 인증과 개인정보 및 대상 사이트 코드 보호 방법을 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: 예상되는 한계
+      description: 결과를 일반화할 수 없는 조건을 적어 주세요.
+    validations:
+      required: true

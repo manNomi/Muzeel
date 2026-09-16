@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "run_id": "example-modal-run",
+  "sequence": 1,
+  "explorer": "ai_agent",
+  "state_before": {
+    "state_id": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "url_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "dom_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+    "screenshot_hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+    "visible_interaction_count": 4
+  },
+  "action": {
+    "type": "click",
+    "target_id": "open-login-modal",
+    "policy_decision": "allowed",
+    "rationale": "모달이 만든 새 상태와 인터랙션을 관찰한다"
+  },
+  "state_after": {
+    "state_id": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+    "url_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "dom_hash": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+    "screenshot_hash": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "visible_interaction_count": 8
+  },
+  "discovery": {
+    "new_state": true,
+    "new_interaction_count": 4,
+    "network_request_count": 2,
+    "new_script_count": 1,
+    "new_scripts": [
+      {
+        "url_hash": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+        "bytes": 48123,
+        "status": "discovered"
+      }
+    ],
+    "function_coverage_delta": 0
+  },
+  "outcome": {
+    "status": "succeeded",
+    "navigation_violation": false,
+    "console_error_categories": []
+  },
+  "timing": {
+    "started_at": "2026-09-16T00:00:00Z",
+    "settled_at": "2026-09-16T00:00:01Z",
+    "elapsed_ms": 1000
+  }
+}

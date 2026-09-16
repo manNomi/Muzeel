@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "run_id": "solid-connection-home-muzeel-agent-20260814-r2",
+  "target_url": "https://www.solid-connection.com/",
+  "muzeel_commit": "bc63ca5ca039ee67462fe1e1bfd009fe498c89ce",
+  "snapshot": {
+    "captured_on": "2026-08-14",
+    "entry_count": 79,
+    "javascript_file_count": 22,
+    "query_policy": "preserve",
+    "capture_replay_text_similarity": 1.0,
+    "capture_replay_visual_similarity": 0.999959,
+    "strict_replay_passed": true
+  },
+  "planner": {
+    "provider": "openai_via_codex_cli",
+    "model": "configured_default",
+    "action_budget": 12,
+    "executed_action_count": 12,
+    "elapsed_seconds": 102.075652,
+    "policy_rejection_count": 0,
+    "action_failure_count": 0,
+    "navigation_violation_count": 0,
+    "trace_audit_passed": true
+  },
+  "elimination": {
+    "parser_failure_count": 0,
+    "protected_file_count": 5,
+    "total_function_count": 4084,
+    "used_function_count": 1180,
+    "removed_function_count": 2904,
+    "original_javascript_bytes": 1919653,
+    "processed_javascript_bytes": 1487171,
+    "reduced_javascript_bytes": 432482,
+    "reduction_percent": 22.529,
+    "processed_syntax_failure_count": 0
+  },
+  "holdout": {
+    "scenario_count": 5,
+    "evaluable_scenario_count": 5,
+    "functional_damage_count": 0,
+    "new_console_error_category_count": 0,
+    "minimum_visual_similarity": 1.0,
+    "release_gate_approved": true
+  },
+  "publication": {
+    "contains_target_javascript_source": false,
+    "contains_browser_profile": false,
+    "contains_cookies": false,
+    "contains_raw_trace": false
+  }
+}

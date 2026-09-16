@@ -112,6 +112,16 @@ class ModernDataStoreTest(unittest.TestCase):
         )
         self.assertEqual(source, store.data_map[request_url]["updated"])
 
+    def test_restores_original_and_reports_invalid_transformation(self):
+        source = "function available(){return true}"
+        temporary, _root, request_url, store = self.make_store(source)
+        self.addCleanup(temporary.cleanup)
+        store.data_map[request_url]["updated"] = "function broken( {"
+        errors = store.validate_updated_files()
+        self.assertIn(request_url, errors)
+        store.preserve_original_files()
+        self.assertEqual(source, store.data_map[request_url]["updated"])
+
 
 if __name__ == "__main__":
     unittest.main()

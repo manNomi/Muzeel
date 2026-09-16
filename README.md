@@ -6,14 +6,46 @@
 ## 개선판 문서
 
 - [구조와 구현 방법](docs/architecture-ko.md)
+- [Muzeel AI Agent 설계와 실행 방법](docs/muzeel-ai-agent-ko.md)
+- [상태 기반 탐색과 동적 JavaScript 청크 추적 연구 설계](docs/state-aware-exploration-ko.md)
+- [연구 로드맵과 현재 증거 수준](docs/research-roadmap-ko.md)
 - [Solid Connection 실험 보고서](docs/solid-connection-case-study-ko.md)
+- [Solid Connection AI Agent 실행 결과](docs/solid-connection-agent-run-20260814-ko.md)
 - [공개 데이터 설명과 검증 방법](experiments/solid-connection/README.md)
+- [상태 전이 공개 데이터 형식](experiments/state-aware-exploration/README.md)
+- [기여 방법](CONTRIBUTING.md)
 
-Solid Connection 홈 화면 사례에서 최종 안전 정책은 JavaScript를
-1,919,566바이트에서 1,481,143바이트로 줄였습니다. 감소율은 22.84%입니다.
-브라우저 에이전트가 확인한 상호작용 13개를 재생했고 별도로 분리한 회귀
-시나리오 다섯 개가 모두 통과했습니다. 이 수치는 홈 화면과 공개된 검증
-범위에만 해당하며 전체 사이트의 안전성을 보장하지 않습니다.
+## Muzeel AI Agent
+
+AI 에이전트는 JavaScript 함수의 필요 여부를 판단하지 않습니다. 현재 화면에서
+다음에 실행할 안전한 상호작용 하나만 제안합니다. 독립 정책 검증기가 제안을
+검사하고 브라우저에서 실제로 관찰된 함수 실행 표식만 제거 근거로 사용합니다.
+파서 실패와 행동 실패와 이동 위반과 불완전한 추적이 있으면 원본 JavaScript를
+보존합니다.
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 -m muzeel_agent validate-action \
+  --base-url https://example.test/ \
+  --observation muzeel_agent/examples/observation.json \
+  --action muzeel_agent/examples/safe-action.json
+```
+
+처리 파일을 만든 뒤에는 별도의 회귀 시나리오로 기능과 화면과 콘솔 오류를
+비교해야 합니다. 제거 전 관문 통과만으로 결과를 배포 가능한 상태로 표시하지
+않습니다.
+
+Solid Connection 홈 화면에는 서로 다른 두 실험 기록이 있습니다. 2026년 8월
+13일 실험은 규칙 기반으로 정의한 13개 행동을 사용해 안전 정책을 만들었습니다.
+2026년 8월 14일 실험은 실제 AI Agent가 선택한 12개 행동을 사용했습니다.
+AI Agent 실험에서는 JavaScript가 1,919,653바이트에서 1,487,171바이트로 줄어
+22.529% 감소했습니다. 별도로 분리한 회귀 시나리오 다섯 개가 모두
+통과했습니다. 두 결과 모두 로그인 전 홈 화면의 로컬 스냅샷에 한정되며 전체
+사이트의 안전성을 보장하지 않습니다.
+
+다음 연구 단계는 행동 이후에 새로 생성된 모달과 입력 요소를 다시 읽고 그
+행동으로 내려받은 JavaScript 청크를 상태 전이와 연결하는 것입니다. 이 연구는
+원본 Muzeel과 규칙 기반 재탐색과 AI Agent 재탐색을 같은 예산으로 비교합니다.
 
 Muzeel is a framework for the identification and elimination of unused JavaScript functions, also known as "deadcode". It is a black-box approach requiring neither knowledge of the code nor execution traces. The core design principle of Muzeel is to address the challenge of dynamically analyzing JavaScript after the page is loaded, by emulating all possible user interactions with the page, such that the used functions (executed when interactivity events fire) are accurately identified, whereas unused functions are filtered out and eliminated.
 

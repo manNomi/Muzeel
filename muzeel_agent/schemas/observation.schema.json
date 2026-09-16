@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Muzeel AI Agent browser observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["url", "title", "state_sha256", "interactive_elements"],
+  "properties": {
+    "url": {"type": "string", "format": "uri"},
+    "title": {"type": "string"},
+    "state_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "interactive_elements": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["selector", "tag", "role", "name", "disabled", "href", "input_type"],
+        "properties": {
+          "selector": {"type": "string", "minLength": 1},
+          "tag": {"type": "string", "minLength": 1},
+          "role": {"type": ["string", "null"]},
+          "name": {"type": "string"},
+          "disabled": {"type": "boolean"},
+          "href": {"type": ["string", "null"]},
+          "input_type": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}
