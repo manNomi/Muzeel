@@ -8,6 +8,7 @@
 - [구조와 구현 방법](docs/architecture-ko.md)
 - [Muzeel AI Agent 설계와 실행 방법](docs/muzeel-ai-agent-ko.md)
 - [상태 기반 탐색과 동적 JavaScript 청크 추적 연구 설계](docs/state-aware-exploration-ko.md)
+- [WebMCP를 활용한 Muzeel 확장 연구 방향](docs/webmcp-research-direction-ko.md)
 - [연구 로드맵과 현재 증거 수준](docs/research-roadmap-ko.md)
 - [Solid Connection 실험 보고서](docs/solid-connection-case-study-ko.md)
 - [Solid Connection AI Agent 실행 결과](docs/solid-connection-agent-run-20260814-ko.md)
